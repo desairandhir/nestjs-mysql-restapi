@@ -1,20 +1,25 @@
 import { Module } from '@nestjs/common';
-import { Student } from './entities/student.entity';
+import { Students } from './entities/student.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { StudentsModule } from './student.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: 'root',
-    database: 'test',
-    entities: [Student],
-    synchronize: true,
-  }),StudentsModule],
+  imports: [
+    ConfigModule.forRoot(), 
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      entities: [Students],
+      synchronize: true,
+    }),
+    StudentsModule,
+  ],
   controllers: [],
   providers: [],
 })

@@ -1,25 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Student } from 'src/entities/student.entity';
+import { Students } from 'src/entities/student.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class StudentService {
     constructor(
-        @InjectRepository(Student)
-        private studentRepository: Repository<Student>,
+        @InjectRepository(Students)
+        private studentRepository: Repository<Students>,
       ) {}
 
-      async addStudent(studentData: Partial<Student>): Promise<Student> {
+      async addStudent(studentData: Partial<Students>): Promise<Students> {
         const newStudent = this.studentRepository.create(studentData);
         return this.studentRepository.save(newStudent);
       }
 
-      findAll(): Promise<Student[]> {
+      findAll(): Promise<Students[]> {
         return this.studentRepository.find();
       }
     
-      findOne(id: number): Promise<Student | null> {
+      findOne(id: number): Promise<Students | null> {
         return this.studentRepository.findOneBy({ id });
       }
 
@@ -27,7 +27,7 @@ export class StudentService {
         await this.studentRepository.delete(id);
       }
 
-      async update(id: number, newData: Partial<Student>): Promise<Student | null> {
+      async update(id: number, newData: Partial<Students>): Promise<Students | null> {
         const student = await this.studentRepository.findOneBy({id});
         if (!student) {
           return null; 
