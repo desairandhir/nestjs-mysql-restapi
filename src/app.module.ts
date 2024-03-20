@@ -1,13 +1,16 @@
 import { Module } from '@nestjs/common';
-import { Students } from './entities/student.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { StudentsModule } from './student.module';
 import { ConfigModule } from '@nestjs/config';
+
+import { StudentsModule } from './student/student.module';
+import { Students } from './entities/student.entity';
+import { UsersModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), 
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -18,11 +21,12 @@ import { ConfigModule } from '@nestjs/config';
       entities: [Students],
       synchronize: true,
     }),
-    StudentsModule,
+    StudentsModule, UsersModule, AuthModule,
   ],
   controllers: [],
   providers: [],
 })
+
 export class AppModule {
-  constructor(private dataSource: DataSource) {}
+  constructor(private dataSource: DataSource) { }
 }
