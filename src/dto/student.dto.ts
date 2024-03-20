@@ -1,18 +1,15 @@
 import { IsString, IsInt } from 'class-validator';
 
 export class CreateStudentDto {
-  // @IsInt()
-  // id: number;
-
-@IsString()
+  @IsString()
   firstName: string;
 
-@IsString()
+  @IsString()
   lastName: string;
 
-@IsInt()
+  @IsInt()
   contact: number;
-  
-@IsString()
+
+  @IsString()
   course: string;
 }

@@ -11,9 +11,11 @@ export class Students {
   @Column()
   lastName: string;
 
-  @Column({type: 'bigint'})
+  @Column({ type: 'bigint' })
   contact: number;
 
   @Column()
   course: string;
+
+  
 }
